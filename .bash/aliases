@@ -1,0 +1,174 @@
+export pwdsql=Yvu5432
+#### System commands ####
+alias ts='echo `date "+%Y-%m-%d.%H%M"`'
+export ts
+alias cp='cp -rfp'
+alias rm='rm -rf'
+alias j='jobs -l'
+alias po=popd
+alias pu=pushd
+alias l='ls -AFvb --color=auto'
+alias ll='ls -AlFvb --color=auto'
+alias lt='ls -AlFtrb --color=auto'
+alias LS='find -mount -maxdepth 1 -printf "%.5m %10M %#9u:%-9g %#5U:%-5G %TF_%TR %CF_%CR %AF_%AR %#15s [%Y] %p\n" 2>/dev/null'
+alias rm='rm -r'
+alias services='ntsysv'
+alias apa='systemctl restart httpd && apachectl configtest'
+alias vhost='cd /etc/httpd/conf/vhost'
+alias ipa='hostname -I'
+alias mymysqladmin='mysqladmin -uroot -p$pwdsql'
+alias mymysql='mysql -uroot -p$pwdsql'
+alias mymysqldump='mysqldump -uroot -p$pwdsql'
+alias sua='su -l aegir'
+alias suk='su -l ken'
+alias sur='su -l root'
+alias suo='su -l o1'
+alias wrapoff='tput rmam'
+alias wrapon='tput smam'
+alias sud='su -l drupal'
+alias notep="cat /home/drupal/notes_pantheon"
+alias traceroute='ntp'
+alias vi='vim'
+alias vim='vim -u ~/.vim/vimrc -i ~/.vim/viminfo'
+alias tail7='tail -f /var/log/httpd/7-error_log'
+alias tail='tail -n $((${LINES:-`tput lines 2>/dev/null||echo -n 80`} - 7))'
+cmdfu(){ local t=~/cmdfu;echo -e "\n# $1 {{{1">>$t;curl -s "www.commandlinefu.com/commands/matching/$1/`echo -n $1|base64`/plaintext"|sed '1,2d;s/^#.*/& {{{2/g'>$t;vim -u /dev/null -c "set ft=sh fdm=marker fdl=1 noswf" -M $t;rm $t; }
+#function diff () { diff -Enu $@ | colordiff |less -R; }
+#function diff () { colordiff -ruw $@;}
+alias chownd='sudo chown -Rc drupal:drupal .'
+bu () { cp -rpf $1 ${1}.`ts`.bak ; }
+#alias dig='dig any +nocmd +nostats'
+alias dateh='date --help|sed -n "/^ *%%/,/^ *%Z/p"|while read l;do F=${l/% */}; date +%$F:"|'"'"'${F//%n/ }'"'"'|${l#* }";done|sed "s/\ *|\ */|/g" |column -s "|" -t'
+duk () { du -sk * | sort -n | while read size fname; do for unit in k M G T P E Z Y; do if [ $size -lt 1024 ]; then echo -e "${size}${unit}\t${fname}"; break; fi; size=$((size/1024)); done; done;}
+#alias topten='. /root/scripts/topten'
+alias guard='bundle exec guard'
+#alias mirrorpage='wget -E -H -k -K -p -e robots=off $1'
+alias mirrorpage='wget --timeout=5 --adjust-extension --convert-links --backup-converted --page-requisites --no-directories -Pwget $1'
+alias tidysass='sass-convert --from scss --to scss --in-place --recursive sass/'
+#alias updatedb='updatedb --require-visibility 0 -o ~/.locate.db'
+#alias locate='locate --database=/home/drupal/.locate.db'
+h() {
+    if [ -z "$1" ]
+      then
+        history
+      else
+        history | grep "$@"
+    fi
+}
+
+function extract()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1    ;;
+      *.tar.gz)    tar xzf $1    ;;
+      *.bz2)       bunzip2 $1    ;;
+      *.rar)       unrar x $1    ;;
+      *.gz)        gunzip $1     ;;
+      *.tar)       tar xf $1     ;;
+      *.tbz2)      tar xjf $1    ;;
+      *.tgz)       tar xzf $1    ;;
+      *.zip)       unzip -qq $1  ;;
+      *.Z)         uncompress $1 ;;
+      *.7z)        7z x $1       ;;
+      *)           echo "'$1' cannot be extracted via >extract<" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+
+##########################
+#### Drupal locations ####
+alias cd6='cd /home/drupal/drupal6/sites'
+alias cd7='cd /home/drupal/drupal7/sites'
+alias cd7a='cd /home/drupal/drupal7/sites/all'
+alias cd8='cd /home/drupal/drupal8/sites'
+alias cda='cd /home/drupal/drupal6/sites/almachocolate.com'
+alias cdat='cd /home/drupal/drupal6/sites/almachocolate.com/themes/alma'
+alias cdb='cd /home/drupal/drupal7/sites/bodywisdomschool.com'
+alias cdc='cd /home/drupal/drupal7/sites/clfuture.org'
+alias cdct='cd /home/drupal/drupal7/sites/clfuture.org/themes/clf_201301'
+alias cdd='cd /home/drupal'
+alias cdf='cd /home/drupal/drupal6/sites/friends.org'
+alias cdff='cd /home/ffmpeg_test/www'
+alias cdh='cd /home/drupal/drupal6/sites/handinhandk12.org'
+alias cdi='cd /home/drupal/drupal7/sites/theintertwine.org'
+alias cdic='cd /home/drupal/drupal7/sites/islandcove.org'
+alias cdip='cd /home/drupal/theintertwine_pantheon/sites/default'
+alias cdir='cd /home/drupal/drupal7/sites/intertwine.tumblehome.com'
+alias cdirt='cd /home/drupal/drupal7/sites/intertwine.tumblehome.com/themes/theintertwine_2013'
+#alias cdirt='cd /home/drupal/drupal7/sites/intertwine.tumblehome.com/themes/theintertwine2013'
+alias cdit='cd /home/drupal/drupal7/sites/theintertwine.org/themes/portlandia'
+alias cdk='cd /home/drupal/drupal7/sites/kids-heal.org'
+alias cdl6='cd /home/drupal/drupal6/sites/lifturbanportland.org'
+alias cdl7='cd /home/drupal/drupal7/sites/lifturbanportland.org'
+alias cdlt='cd /home/drupal/drupal7/sites/lifturbanportland.org/themes/lift'
+alias cdo='cd /home/drupal/distros/octopus-video/sites/default'
+alias cds='cd /home/drupal/drupal6/sites/streamwebs.org'
+alias cdu='cd /home/drupal/drupal6/sites/urbangreenspaces.org'
+alias cdup6='cd /home/drupal/sup6/sites/lifturbanportland.org'
+alias cdup7='cd /home/drupal/sup7/sites/lifturbanportland.org'
+alias cdv='cd /home/drupal/drupal6/sites/feature_video.lan'
+alias cdsusy='cd /home/ken/www/sass/susy'
+alias allthemes='cd /home/drupal/contrib/drupal7-theme; ls'
+
+
+#########################
+#### Other locations ####
+alias cdp='cd /home/activecollab'
+
+###############################
+#### Drush/Drupal commands ####
+alias dru='drush updatedb'
+alias drd='drush sql-dump --result-file --gzip'
+alias drl="drush pml --no-core --type=module --status=enabled --pipe | sort | tr '\n' ' '"
+alias drld="drush pml --no-core --type=module --status=disabled --pipe | sort | tr '\n' ' '"
+alias drli='drush uli'
+alias drws='drush ws --full --tail'
+alias drfl='drush cc drush && drush fl --status=enabled'
+alias drwd='drush watchdog-delete all --yes'
+alias drsa='drush sa @self --with-optional --with-db --show-passwords'
+alias wdd='drush watchdog-delete all --yes'
+drui() { drush pm-disable -y $@ && drush pm-uninstall -y $@ ;}
+
+function mkdb() {
+   mysqladmin -uroot -p$pwdsql create $1
+   mysql -uroot -p${pwdsql} -e "CREATE DATABASE IF NOT EXISTS $1;"
+   mysql -uroot -p${pwdsql} -e "GRANT SELECT , INSERT , UPDATE , DELETE , CREATE , DROP , INDEX , ALTER ON $1 . * TO 'drupal'@'localhost';"
+  }
+
+function sitedir() {
+  drush --yes en sitedir_migrate, sitedir_migrate_blocks, sitedir_migrate_body
+  drush migrate $1 $2
+  drush --yes dis sitedir_migrate*
+  drush --yes pm-uninstall `drush pm-list --status=disabled --pipe | grep sitedir_migrate`
+  drush --yes pm-uninstall `drush pm-list --status=disabled --pipe | grep sitedir_migrate`
+  drush variable-set --yes file_public_path sites/${2}/files
+  drush variable-set --yes file_private_path sites/${2}/private
+  echo "Done. Site dir changed: $1 ---> $2"
+}
+
+function drc () {
+  pwd=`pwd`
+  cd `pwd | sed 's!themes/.*!!'`
+  drush cache-clear all
+  rm -rf files/css/* files/js/*
+  cd $pwd
+}
+
+function drr () {
+  #drush cc all
+  drush registry-rebuild
+}
+
+function topten () {
+FS='./';resize;clear;date;df -h $FS; echo "Largest Directories:"; du -hcx --max-depth=2 $FS 2>/dev/null | grep [0-9]G | sort -grk 1 | head -15 ;echo "Largest Files:"; nice -n 19 find $FS -mount -type f -print0 2>/dev/null| xargs -0 du -k | sort -rnk1| head -n20 |awk '{printf "%8d MB\t%s\n",($1/1024),$NF}'
+}
+
+function listthemes () {
+  cd /home/drupal/contrib/drupal7-theme
+  pwd
+  ls -m
+}
