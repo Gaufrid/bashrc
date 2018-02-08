@@ -1,6 +1,21 @@
 source /etc/bashrc
 source ~/.bash/aliases
 
+# Include Drush bash customizations.
+if [ -f "~/.drush/drush.bashrc" ] ; then
+  source ~/.drush/drush.bashrc
+fi
+
+# Include Drush completion.
+if [ -f "~/.drush/drush.complete.sh" ] ; then
+  source ~/.drush/drush.complete.sh
+fi
+
+# Include Drush prompt customizations.
+if [ -f "~/.drush/drush.prompt.sh" ] ; then
+  source ~/.drush/drush.prompt.sh
+fi
+
 # Set putty's title bar before setting PS1
 USER=$(/usr/bin/id -un)
 HOSTNAME=$(uname -n)

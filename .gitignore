@@ -2,3 +2,7 @@
 .rnd
 tmp/
 .ssh/
+.bash/history
+.drush/
+.gnupg/
+.vim/viminfo
